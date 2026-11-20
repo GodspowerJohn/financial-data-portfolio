@@ -1,44 +1,68 @@
 # Agent Commission Profitability & Cost Optimisation
 
- **Portfolio demonstration using fully synthetic data. No employer, customer or bank records.**
+**Comparing incentive policies against contribution-margin protection**
 
- ## Business question
- Which illustrative commission structure better protects contribution margin without ignoring incentive trade-offs?
+**[View the published case study](https://godspowerjohn.github.io/financial-data-portfolio/projects/commission-profitability/)** · [Back to the portfolio overview](../../README.md)
 
- ## Project workflow
- 1. Simulate 80 agents across nine months and several product categories.
-2. Compare a qualifying 5% stake-linked payout and 30% positive-GGR monthly floor against a smaller stake component and a 40% positive-GGR payout ceiling.
-3. Calculate payout cost, loss-making agent-months and product-level differences.
-4. Explain how guardrails can reduce costs but also change agent incentives.
+> **Data provenance:** A reproducible portfolio demonstration using artificial, synthetic data. The metrics below are results of that simulation, not real employer, client, bank or production data.
 
- ## Reproduce
- From the repository root:
- ```bash
- pip install -r projects/requirements.txt
- python projects/commission-profitability/src/run.py
- ```
- This script overwrites `projects/commission-profitability/data/*.csv` and `results/metrics.json` deterministically with a fixed random seed. Use Python 3.10+.
+## 1. Business problem
 
- ## Main files
- - `src/run.py`: deterministic generation and analysis, with evaluation or scenario logic
- - `src/analysis.sql`: PostgreSQL 14+ exploratory queries
- - `powerbi/measures.dax`: Power BI measures with named tables
- - `powerbi/REPORT_SPEC.md`: report pages, data model and QA checklist
- - `data/agent_months.csv`: synthetic outputs (additional files as applicable)
- - `results/metrics.json`: reproducible metrics for the accompanying case study
+How does changing a commission policy affect payout costs, commission-to-GGR ratios and the number of loss-making agent periods?
 
- ## Analytical interpretation
- - Loss-making agent-months are measurable even when aggregate GGR is positive.
-- A strict profit-linked cap lowers payouts in low-margin periods.
-- Estimated savings are scenario arithmetic, not evidence of a real operational outcome.
+## 2. Data and method
 
- ## Recommended business actions
- - Stress-test payout fairness and minimum agent economics.
-- Use hold-margin bands and exception approval in policy design.
-- Pilot policy changes and monitor subsequent volume and retention.
+720 simulated agent-month observations representing 80 agents over nine months. Each observation contains simulated stakes, GGR and commission-related quantities by product.
 
- ## Limitations
- Commission rules are invented for demonstration and are not any employer’s actual rules. Reduced payout does not automatically imply higher long-term profit because behaviour may change.
+I compared an invented qualifying 5% stake-linked payout with a 30% positive-GGR monthly floor against a hypothetical lower stake component and a 40% positive-GGR payout ceiling. I compared costs and loss-making agent-months across products.
 
- ## Reproducibility
- All figures on the web case study should be read as values from this artificial demonstration, not professional achievements or business facts. Verify the metrics by rerunning the script and comparing `results/metrics.json`. In Power BI Desktop, import CSVs and create the measures documented under `powerbi/`.
+## 3. Results that matter
+
+| Measure | Simulated result |
+| --- | ---: |
+| Agent-month records | 720 |
+| Baseline commission | ₦57.05 million |
+| Scenario commission | ₦32.01 million |
+| Illustrative payout difference | ₦25.04 million |
+| Commission / positive GGR, baseline | 49.3% |
+| Commission / positive GGR, scenario | 27.7% |
+| Loss-making agent-months | 240 baseline → 135 scenario |
+
+![Calculated analytical outputs from the synthetic dataset](results/summary.svg)
+
+In the simulated data, the capped policy yields a lower calculated commission bill. That difference is a scenario result, not realised financial savings. An incentive change may also affect agent behaviour, retention and future transaction volumes, which this simulation does not estimate.
+
+## 4. Business recommendation
+
+Test policies by product and agent cohort, define margin guardrails and exception approval, and evaluate agent responses in a controlled pilot before making any commercial decision.
+
+## 5. Limitations
+
+All policy rules and observations are hypothetical. There is no measured causal relationship between the commission change and agent behaviour. The cost difference must not be presented as an achieved company result.
+
+## 6. Reproduce the analysis
+
+Install the shared project requirements and run the project script from the **repository root** using Python 3.10+:
+
+```bash
+python -m pip install -r projects/requirements.txt
+python projects/commission-profitability/src/run.py
+```
+
+The script uses a fixed random seed and regenerates synthetic outputs. Verify the figures against [`results/metrics.json`](results/metrics.json); open [`results/summary.svg`](results/summary.svg) to inspect the generated chart.
+
+## 7. Files and deliverables
+
+- [Dataset](data/agent_months.csv)
+- [Python analysis](src/run.py)
+- [PostgreSQL exploration](src/analysis.sql)
+- [Calculated metrics](results/metrics.json)
+- [Chart output](results/summary.svg)
+- [Power BI DAX measures](powerbi/measures.dax)
+- [Power BI report specification and quality checks](powerbi/REPORT_SPEC.md)
+
+**Power BI status:** DAX measures and report-building guidance are included. No completed native `.pbix` report is claimed here.
+
+---
+
+**Professional portfolio:** [Godspower Johnson](https://godspowerjohn.github.io/financial-data-portfolio/) · [All five projects](../../README.md)

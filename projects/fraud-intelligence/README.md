@@ -1,44 +1,69 @@
 # Financial Fraud Detection & Risk Intelligence
 
- **Portfolio demonstration using fully synthetic data. No employer, customer or bank records.**
+**Transaction monitoring, risk scoring and investigation prioritisation**
 
- ## Business question
- How can investigators prioritise suspicious activity without overwhelming the queue with false alerts?
+**[View the published case study](https://godspowerjohn.github.io/financial-data-portfolio/projects/fraud-intelligence/)** · [Back to the portfolio overview](../../README.md)
 
- ## Project workflow
- 1. Generate 4,800 labelled synthetic transactions with time, amount, velocity, device and cross-border indicators.
-2. Use a 60/20/20 chronological split; fit a class-weighted logistic regression.
-3. Choose the alert threshold on validation records only, then evaluate untouched test transactions.
-4. Compare the model with a simple review rule, including false alerts and missed risk.
+> **Data provenance:** A reproducible portfolio demonstration using artificial, synthetic data. The metrics below are results of that simulation, not real employer, client, bank or production data.
 
- ## Reproduce
- From the repository root:
- ```bash
- pip install -r projects/requirements.txt
- python projects/fraud-intelligence/src/run.py
- ```
- This script overwrites `projects/fraud-intelligence/data/*.csv` and `results/metrics.json` deterministically with a fixed random seed. Use Python 3.10+.
+## 1. Business problem
 
- ## Main files
- - `src/run.py`: deterministic generation and analysis, with evaluation or scenario logic
- - `src/analysis.sql`: PostgreSQL 14+ exploratory queries
- - `powerbi/measures.dax`: Power BI measures with named tables
- - `powerbi/REPORT_SPEC.md`: report pages, data model and QA checklist
- - `data/transactions.csv`: synthetic outputs (additional files as applicable)
- - `results/metrics.json`: reproducible metrics for the accompanying case study
+How can an investigation team identify more suspicious transactions while keeping false alerts within a manageable review queue?
 
- ## Analytical interpretation
- - Precision and recall are reported from the held-out period, not training accuracy.
-- The dataset is imbalanced; a confident model can still generate costly false alerts.
-- A risk score supports analyst triage but is not proof of wrongdoing.
+## 2. Data and method
 
- ## Recommended business actions
- - Route high-scoring cases to an investigator queue.
-- Track false-positive rate and missed fraud as competing objectives.
-- Audit drift, fairness, and alert capacity before a real deployment.
+4,800 labelled, fully synthetic transactions. Features include transaction value, recent transaction frequency, device indicators, timing and cross-border indicators. There are 119 simulated fraud labels across the whole dataset.
 
- ## Limitations
- All labels and features are simulated. The pattern is engineered and cannot establish actual fraud detection capability. No sensitive identifiers are present.
+I used a 60/20/20 chronological train/validation/test split, fitted a class-weighted logistic-regression classifier, selected the alert threshold using validation data and assessed the untouched test period against a simple rules-based baseline.
 
- ## Reproducibility
- All figures on the web case study should be read as values from this artificial demonstration, not professional achievements or business facts. Verify the metrics by rerunning the script and comparing `results/metrics.json`. In Power BI Desktop, import CSVs and create the measures documented under `powerbi/`.
+## 3. Results that matter
+
+| Measure | Simulated result |
+| --- | ---: |
+| Test transactions | 960 |
+| Test fraud cases | 18 |
+| Model alerts raised | 27 |
+| True fraud alerts | 7 |
+| False alerts | 20 |
+| Precision | 25.9% |
+| Recall | 38.9% |
+| Baseline rule precision / recall | 60.0% / 16.7% |
+
+![Calculated analytical outputs from the synthetic dataset](results/summary.svg)
+
+The model flagged 7 of 18 labelled fraud transactions in the held-out period, but 20 of its 27 alerts were false positives. The simpler comparison rule had better precision but caught fewer fraud cases. More alerts do not necessarily mean better operations; investigators must consider case capacity and the cost of missed fraud.
+
+## 4. Business recommendation
+
+Pilot an investigator review queue with explicit case priority, monitor precision and recall against review capacity, log investigation outcomes, and re-evaluate the threshold when transaction patterns change.
+
+## 5. Limitations
+
+The 4,800 transactions and fraud labels are simulated, including the behavioural patterns. Neither these model metrics nor the risk scores demonstrate production fraud-detection effectiveness. A risk alert is a prompt to investigate, not proof of misconduct.
+
+## 6. Reproduce the analysis
+
+Install the shared project requirements and run the project script from the **repository root** using Python 3.10+:
+
+```bash
+python -m pip install -r projects/requirements.txt
+python projects/fraud-intelligence/src/run.py
+```
+
+The script uses a fixed random seed and regenerates synthetic outputs. Verify the figures against [`results/metrics.json`](results/metrics.json); open [`results/summary.svg`](results/summary.svg) to inspect the generated chart.
+
+## 7. Files and deliverables
+
+- [Dataset](data/transactions.csv)
+- [Python analysis](src/run.py)
+- [PostgreSQL exploration](src/analysis.sql)
+- [Calculated metrics](results/metrics.json)
+- [Chart output](results/summary.svg)
+- [Power BI DAX measures](powerbi/measures.dax)
+- [Power BI report specification and quality checks](powerbi/REPORT_SPEC.md)
+
+**Power BI status:** DAX measures and report-building guidance are included. No completed native `.pbix` report is claimed here.
+
+---
+
+**Professional portfolio:** [Godspower Johnson](https://godspowerjohn.github.io/financial-data-portfolio/) · [All five projects](../../README.md)

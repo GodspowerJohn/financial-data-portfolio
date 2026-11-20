@@ -1,44 +1,68 @@
 # Financial Performance & Cash Flow Forecasting
 
- **Portfolio demonstration using fully synthetic data. No employer, customer or bank records.**
+**Revenue backtesting, liquidity forecasting and scenario sensitivity**
 
- ## Business question
- How can finance teams anticipate liquidity changes and evaluate downside exposure before planning commitments?
+**[View the published case study](https://godspowerjohn.github.io/financial-data-portfolio/projects/cashflow-forecast/)** · [Back to the portfolio overview](../../README.md)
 
- ## Project workflow
- 1. Create 36 synthetic months of revenue, costs, EBITDA, capex and working-capital movements.
-2. Fit a trend-and-seasonality regression on the first 30 months.
-3. Evaluate a six-month holdout, then forecast six future months.
-4. Apply explicit downside/base/upside revenue multipliers to build cash scenarios.
+> **Data provenance:** A reproducible portfolio demonstration using artificial, synthetic data. The metrics below are results of that simulation, not real employer, client, bank or production data.
 
- ## Reproduce
- From the repository root:
- ```bash
- pip install -r projects/requirements.txt
- python projects/cashflow-forecast/src/run.py
- ```
- This script overwrites `projects/cashflow-forecast/data/*.csv` and `results/metrics.json` deterministically with a fixed random seed. Use Python 3.10+.
+## 1. Business problem
 
- ## Main files
- - `src/run.py`: deterministic generation and analysis, with evaluation or scenario logic
- - `src/analysis.sql`: PostgreSQL 14+ exploratory queries
- - `powerbi/measures.dax`: Power BI measures with named tables
- - `powerbi/REPORT_SPEC.md`: report pages, data model and QA checklist
- - `data/monthly_financials.csv`: synthetic outputs (additional files as applicable)
- - `results/metrics.json`: reproducible metrics for the accompanying case study
+How can a finance team evaluate revenue forecast accuracy and understand how downside conditions could affect available cash?
 
- ## Analytical interpretation
- - Backtest error indicates how closely the simple model matched holdout revenue.
-- Cash scenarios reveal the sensitivity of ending liquidity to revenue assumptions.
-- Scenario outputs are not probability-weighted forecasts.
+## 2. Data and method
 
- ## Recommended business actions
- - Build a rolling 13-week cash monitoring view for short-term management.
-- Reconcile forecast assumptions with contracts and actual receivables.
-- Add variable-cost and working-capital scenario sensitivity.
+36 synthetic months of revenue, operating costs, EBITDA, capital expenditure and working-capital movements.
 
- ## Limitations
- The financial series is synthetic; the model assumes stable seasonality, expense relationships and cash timing. Forecasts do not apply to a real company.
+I trained a trend-and-seasonality revenue model using 30 months, evaluated it on a subsequent six-month holdout, then projected six future months. The base, upside and downside cash scenarios apply transparent revenue and cost assumptions.
 
- ## Reproducibility
- All figures on the web case study should be read as values from this artificial demonstration, not professional achievements or business facts. Verify the metrics by rerunning the script and comparing `results/metrics.json`. In Power BI Desktop, import CSVs and create the measures documented under `powerbi/`.
+## 3. Results that matter
+
+| Measure | Simulated result |
+| --- | ---: |
+| Historical period | 36 months |
+| Revenue backtest | 6 held-out months |
+| Revenue MAE | ₦764,902 |
+| Latest illustrative closing cash | ₦322.16 million |
+| Month-six downside cash | ₦382.92 million |
+| Month-six base cash | ₦401.27 million |
+| Month-six upside cash | ₦419.63 million |
+
+![Calculated analytical outputs from the synthetic dataset](results/summary.svg)
+
+The held-out revenue error gives one estimate of historical forecasting fit. The ₦18.35 million gap between the downside and base month-six cash scenarios highlights sensitivity to revenue assumptions; it does not measure a prediction interval or probability of either outcome.
+
+## 4. Business recommendation
+
+Tie forecasts to receivables, payment schedules and committed expenses, add a rolling 13-week view for near-term cash needs, and stress-test working-capital and expense assumptions.
+
+## 5. Limitations
+
+All values are simulated. The model assumes relatively stable seasonality, cash conversion and cost relationships. Scenarios are not probability-weighted and do not forecast an actual business.
+
+## 6. Reproduce the analysis
+
+Install the shared project requirements and run the project script from the **repository root** using Python 3.10+:
+
+```bash
+python -m pip install -r projects/requirements.txt
+python projects/cashflow-forecast/src/run.py
+```
+
+The script uses a fixed random seed and regenerates synthetic outputs. Verify the figures against [`results/metrics.json`](results/metrics.json); open [`results/summary.svg`](results/summary.svg) to inspect the generated chart.
+
+## 7. Files and deliverables
+
+- [Dataset](data/monthly_financials.csv)
+- [Python analysis](src/run.py)
+- [PostgreSQL exploration](src/analysis.sql)
+- [Calculated metrics](results/metrics.json)
+- [Chart output](results/summary.svg)
+- [Power BI DAX measures](powerbi/measures.dax)
+- [Power BI report specification and quality checks](powerbi/REPORT_SPEC.md)
+
+**Power BI status:** DAX measures and report-building guidance are included. No completed native `.pbix` report is claimed here.
+
+---
+
+**Professional portfolio:** [Godspower Johnson](https://godspowerjohn.github.io/financial-data-portfolio/) · [All five projects](../../README.md)

@@ -12,6 +12,14 @@ I work with **SQL, Python, Power BI and Excel**, with particular interests in fi
 
 The website presents my background, project case studies and interactive analytics demonstrations.
 
+### Project evidence at a glance
+
+**Featured case study: transaction fraud triage.** In a fully synthetic held-out test set of 960 transactions, a validation-selected model flagged 27 for review, including 7 of 18 simulated fraud cases, with 20 false alerts. This demonstrates the **precision, recall and investigation-capacity trade-off**, not production fraud performance.
+
+![Fraud detection case-study output: synthetic model and alert evaluation](projects/fraud-intelligence/results/summary.svg)
+
+**[Open the fraud case study](https://godspowerjohn.github.io/financial-data-portfolio/projects/fraud-intelligence/)**
+
 ## Selected projects
 
 Each project below includes a business problem, documented analytical approach, a synthetic dataset, reproducible Python code, PostgreSQL SQL queries, calculated results and Power BI reporting specifications with DAX measures.
