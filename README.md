@@ -17,7 +17,7 @@ Edit `assets/config.js`:
 - `linkedin`: URL to your actual LinkedIn profile
 - `resume`: relative URL to a PDF résumé you add, for example `assets/resume.pdf`
 
-Only nonblank links are displayed. Add genuine education, certifications and professional achievements to the About section if you want to strengthen the personal narrative. **Do not publish confidential employer data, private customer information, invented results or unverified claims.**
+Only nonblank links are displayed. Add genuine education, certifications and professional achievements to the About section if you want to strengthen the personal narrative. **Do not publish confidential company data, private customer information, invented results or unverified claims.**
 
 ## What is real, what is illustrative?
 
