@@ -2,7 +2,7 @@
 window.PORTFOLIO_CONFIG = {
   name: "Godspower Johnson",
   initials: "GJ",
-  title: "Financial Data Analyst & Payments Operations Specialist",
+  title: "Finance, Data & Business Analyst | Fraud & Risk Analytics | 5+ Years Experience",
   location: "Lagos, Nigeria",
   email: "",
   github: "https://github.com/GodspowerJohn",
