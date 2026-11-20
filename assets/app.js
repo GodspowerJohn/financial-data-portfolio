@@ -16,13 +16,69 @@
   if ($('heroMatch'))$('heroMatch').textContent=pct(matched/(total||1));
   if ($('heroGap'))$('heroGap').textContent=money(data.settlements.reduce((s,r)=>s+settlementGap(r),0));
   if ($('year'))$('year').textContent=String(new Date().getFullYear());
-  // Only show genuine contact links provided by the portfolio owner.
-  const contacts=[['Email',cfg.email?'mailto:'+cfg.email:''],['GitHub',cfg.github],['LinkedIn',cfg.linkedin],['Résumé',cfg.resume]];
-  const contact= $('contact-links');
-  if (contact){
-    contacts.filter(x=>x[1]).forEach(([label,href])=> {const a=document.createElement('a'); a.textContent=label+' ↗';a.href=href;if(!href.startsWith('mailto:')){a.target='_blank';a.rel='noopener noreferrer'} contact.appendChild(a);});
-    if(contact.children.length){$('contact-note').textContent='Let’s discuss data, financial reporting and operational insight.';} 
+  // Render only links the owner has actually configured.
+  const social=$('contact-social-links');
+  const socials=[['LinkedIn',cfg.linkedin],['GitHub',cfg.github],['Medium',cfg.medium],['X / Twitter',cfg.twitter],['Résumé',cfg.resume]];
+  if(social){
+    socials.filter(([,url])=>typeof url==='string' && /^https:\/\//i.test(url)).forEach(([name,url])=>{
+      const a=document.createElement('a');
+      a.href=url;a.target='_blank';a.rel='noopener noreferrer';
+      a.textContent=name+' ↗';social.appendChild(a);
+    });
+    if(!social.children.length){const p=document.createElement('p');p.textContent='Professional links will appear here once configured.';social.appendChild(p);}
   }
+  const contactEmail=$('contact-email-display');
+  if(contactEmail && cfg.email){
+    const a=document.createElement('a');a.href='mailto:'+cfg.email;a.textContent=cfg.email;
+    contactEmail.replaceChildren(a);
+  }
+  const form=$('contact-form'),status=$('contact-status');
+  const feedback=(message,isError=false)=>{
+    if(!status)return;status.textContent=message;status.classList.toggle('contact-error',isError);
+  };
+  const makeMessage=()=> {
+    const val=id=>($(id)?.value || '').trim();
+    return {name:val('contact-name'),email:val('contact-email'),subject:val('contact-subject'),message:val('contact-message')};
+  };
+  const formatted=(fields)=>'From: '+fields.name+' ('+fields.email+')\nSubject: '+fields.subject+'\n\n'+fields.message;
+  $('contact-copy')?.addEventListener('click',async()=>{
+    const fields=makeMessage();
+    if(!fields.name && !fields.email && !fields.subject && !fields.message){
+      feedback('Write your message first, then select Copy message.',true);return;
+    }
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('clipboard not available');
+      await navigator.clipboard.writeText(formatted(fields));
+      feedback('Message copied. You can paste it into your preferred email application.');
+    }catch(e){feedback('Copying is unavailable in this browser. Select and copy your message manually.',true);}
+  });
+  form?.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if($('contact-website')?.value)return;
+    if(!form.reportValidity())return;
+    const fields=makeMessage();
+    const endpoint=typeof cfg.formEndpoint==='string' ? cfg.formEndpoint.trim() : '';
+    if(endpoint && /^https:\/\//i.test(endpoint)){
+      const button=form.querySelector('button[type="submit"]');
+      if(button){button.disabled=true;button.textContent='Sending...';}
+      try{
+        const response=await fetch(endpoint,{method:'POST',body:JSON.stringify(fields),headers:{'Accept':'application/json','Content-Type':'application/json'}});
+        if(!response.ok)throw new Error('Failed to send');
+        feedback('Your message was submitted successfully.');
+        form.reset();
+      }catch(e){feedback('The message could not be delivered. Please try again later.',true);}
+      finally{if(button){button.disabled=false;button.innerHTML='Send message <span aria-hidden="true">↗</span>';}}
+      return;
+    }
+    if(cfg.email){
+      const subject=encodeURIComponent(fields.subject);
+      const body=encodeURIComponent('Hello Godspower,\n\n'+fields.message+'\n\nFrom: '+fields.name+'\nReply to: '+fields.email);
+      window.location.href='mailto:'+cfg.email+'?subject='+subject+'&body='+body;
+      feedback('Your email application should open with a prepared message. Please send it there to complete your enquiry.');
+      return;
+    }
+    feedback('This form is not yet connected to an inbox. No message was sent. Use Copy message to save your enquiry.',true);
+  });
   let active='settlement';
   const opt=$('demo-filter');
   const render=()=>{

@@ -7,5 +7,8 @@ window.PORTFOLIO_CONFIG = {
   email: "",
   github: "https://github.com/GodspowerJohn",
   linkedin: "",
-  resume: ""
+  resume: "",
+  medium: "",
+  twitter: "",
+  formEndpoint: ""
 };
