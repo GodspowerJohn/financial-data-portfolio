@@ -1,0 +1,8 @@
+-- Table: FraudTransactions. Import data/transactions.csv. All data is synthetic.
+Transactions = COUNTROWS(FraudTransactions)
+Known Fraud Cases = CALCULATE(COUNTROWS(FraudTransactions), FraudTransactions[is_fraud] = 1)
+Known Fraud Rate = DIVIDE([Known Fraud Cases], [Transactions])
+Known Fraud Value = CALCULATE(SUM(FraudTransactions[amount_ngn]), FraudTransactions[is_fraud] = 1)
+High Velocity Cases = CALCULATE(COUNTROWS(FraudTransactions), FraudTransactions[prior_24h_transactions] >= 6)
+New Device Transactions = CALCULATE(COUNTROWS(FraudTransactions), FraudTransactions[new_device] = 1)
+-- For model precision/recall, import predictions on test data only; do not apply these measures to all historical labels.

@@ -1,0 +1,32 @@
+{
+  "agent_month_records": 720,
+  "unique_agents": 80,
+  "months": 9,
+  "stake_ngn": 1014228384.49,
+  "ggr_ngn": 102870843.67,
+  "positive_ggr_ngn": 115712960.71,
+  "baseline_commission_ngn": 57050190.71,
+  "scenario_commission_ngn": 32012516.35,
+  "scenario_reduction_ngn": 25037674.36,
+  "baseline_ratio_positive_ggr": 0.493,
+  "scenario_ratio_positive_ggr": 0.2767,
+  "baseline_loss_making_agent_months": 240,
+  "scenario_loss_making_agent_months": 135,
+  "product_summary": {
+    "Sportsbook": {
+      "ggr_ngn": 49846806,
+      "baseline_commission_ngn": 29555843,
+      "scenario_commission_ngn": 15934903
+    },
+    "Virtual A": {
+      "ggr_ngn": 29948140,
+      "baseline_commission_ngn": 15929650,
+      "scenario_commission_ngn": 9274950
+    },
+    "Virtual B": {
+      "ggr_ngn": 23075897,
+      "baseline_commission_ngn": 11564698,
+      "scenario_commission_ngn": 6802663
+    }
+  }
+}

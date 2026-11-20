@@ -1,0 +1,37 @@
+{
+  "case_count": 2250,
+  "overall_sla_rate": 0.616,
+  "average_queue_minutes": 10.03,
+  "average_handle_minutes": 6.7,
+  "overall_rework_rate": 0.0893,
+  "workflow_results": {
+    "Commission Adjustment": {
+      "cases": 350,
+      "sla_rate": 0.6829,
+      "average_queue_minutes": 15.7511,
+      "rework_rate": 0.1657
+    },
+    "Customer Resolution": {
+      "cases": 347,
+      "sla_rate": 0.6427,
+      "average_queue_minutes": 25.6483,
+      "rework_rate": 0.1585
+    },
+    "Manual Deposit": {
+      "cases": 848,
+      "sla_rate": 0.5389,
+      "average_queue_minutes": 3.1692,
+      "rework_rate": 0.0483
+    },
+    "Payout Review": {
+      "cases": 705,
+      "sla_rate": 0.6624,
+      "average_queue_minutes": 7.7586,
+      "rework_rate": 0.0667
+    }
+  },
+  "whatif_queue_reduction": 0.2,
+  "whatif_sla_rate": 0.6982,
+  "whatif_improvement_pp": 8.22,
+  "queue_time_saved_hours": 75.23
+}

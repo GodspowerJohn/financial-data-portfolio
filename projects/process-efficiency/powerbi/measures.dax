@@ -1,0 +1,9 @@
+-- Table: ProcessCases. What-if fields are scenario assumptions, not observed outcomes.
+Cases = COUNTROWS(ProcessCases)
+Within SLA = CALCULATE(COUNTROWS(ProcessCases), ProcessCases[within_sla] = TRUE())
+SLA Compliance = DIVIDE([Within SLA],[Cases])
+Average Queue Minutes = AVERAGE(ProcessCases[queue_minutes])
+Average Handling Minutes = AVERAGE(ProcessCases[processing_minutes])
+Rework Rate = DIVIDE(CALCULATE(COUNTROWS(ProcessCases),ProcessCases[rework]=1),[Cases])
+What-if SLA Compliance = DIVIDE(CALCULATE(COUNTROWS(ProcessCases),ProcessCases[whatif_within_sla]=TRUE()),[Cases])
+What-if Improvement (pp) = 100 * ([What-if SLA Compliance] - [SLA Compliance])

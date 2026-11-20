@@ -28,3 +28,11 @@
 .profile-facts strong{font-size:13px;line-height:1.5;color:#1c3a30}
 @media(max-width:850px){.profile-layout{grid-template-columns:1fr}.profile-identity{max-width:580px}.profile-avatar{height:150px}}
 @media(max-width:650px){.profile-facts{grid-template-columns:1fr;gap:20px}.profile-story h2{font-size:33px}.profile-story p{font-size:14px}.profile-identity{padding:26px}}
+
+/* Five-project case-study grid */
+.projects-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.projects-grid .project-card:last-child{grid-column:auto}
+.project-art>img{display:block;width:100%;height:100%;object-fit:cover}
+.project-card .card-body{display:flex;flex-direction:column}
+.project-card .card-body .chips{margin-top:auto}
+@media(max-width:650px){.projects-grid{grid-template-columns:1fr}.projects-grid .project-card:last-child{grid-column:auto}}

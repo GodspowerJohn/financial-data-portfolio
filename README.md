@@ -82,3 +82,8 @@ The `.nojekyll` file is included for safe static hosting.
 2. Add an anonymized source-to-dashboard project using a documented data model.
 3. Add one technical write-up showing edge-case tests, validation and choices made.
 4. Link each project to a public repository containing setup instructions and tests.
+
+
+## Five new portfolio case studies
+
+The `projects/` directory now includes five end-to-end reproducible projects: fraud detection, commission optimisation, cashflow forecasting, payment reconciliation and business process efficiency. Each includes synthetic data, Python, SQL, calculated metrics, case-study pages, and Power BI DAX measures/build instructions. Compiled Power BI PBIX files are not included. All outputs are illustrative, not audited findings.

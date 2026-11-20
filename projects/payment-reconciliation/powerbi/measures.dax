@@ -1,0 +1,9 @@
+-- Tables: ReconciliationOutput, ProviderTransactions, BankCredits.
+Transactions = COUNTROWS(ReconciliationOutput)
+Matched Transactions = CALCULATE(COUNTROWS(ReconciliationOutput), ReconciliationOutput[recon_status] = "Matched")
+Exceptions = [Transactions] - [Matched Transactions]
+Match Rate = DIVIDE([Matched Transactions],[Transactions])
+Expected Settlement = SUM(ReconciliationOutput[expected_net_ngn])
+Recorded Bank Credits = SUM(ReconciliationOutput[bank_total_ngn])
+Abs Exception Variance = SUMX(FILTER(ReconciliationOutput, ReconciliationOutput[recon_status] <> "Matched"), ABS(ReconciliationOutput[variance_ngn]))
+Missing Expected Value = CALCULATE(SUM(ReconciliationOutput[expected_net_ngn]),ReconciliationOutput[recon_status] = "Missing")

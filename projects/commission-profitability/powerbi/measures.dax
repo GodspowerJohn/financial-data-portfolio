@@ -1,0 +1,10 @@
+-- Table: AgentMonths. Import data/agent_months.csv.
+Total Stake = SUM(AgentMonths[stake_ngn])
+Total GGR = SUM(AgentMonths[ggr_ngn])
+Positive GGR = SUMX(AgentMonths, MAX(0,AgentMonths[ggr_ngn]))
+Baseline Commission = SUM(AgentMonths[baseline_commission_ngn])
+Scenario Commission = SUM(AgentMonths[scenario_commission_ngn])
+Illustrative Savings = [Baseline Commission] - [Scenario Commission]
+Baseline Commission Rate = DIVIDE([Baseline Commission],[Positive GGR])
+Scenario Commission Rate = DIVIDE([Scenario Commission],[Positive GGR])
+Loss-making Baseline Months = COUNTROWS(FILTER(AgentMonths,AgentMonths[baseline_after_commission_ngn]<0))

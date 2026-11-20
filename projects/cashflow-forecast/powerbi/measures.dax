@@ -1,0 +1,9 @@
+-- Tables: Financials, ForecastScenarios. Use dates derived from yyyy-mm month values.
+Revenue = SUM(Financials[revenue_ngn])
+EBITDA = SUM(Financials[ebitda_ngn])
+EBITDA Margin = DIVIDE([EBITDA],[Revenue])
+Net Cashflow = SUM(Financials[net_cashflow_ngn])
+Month End Cash = MAX(Financials[ending_cash_ngn])
+Forecast Revenue = SUM(ForecastScenarios[forecast_revenue_ngn])
+Forecast EBITDA = SUM(ForecastScenarios[forecast_ebitda_ngn])
+-- Display Month End Cash with an appropriate last-date measure in production models.

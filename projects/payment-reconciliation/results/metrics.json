@@ -1,0 +1,18 @@
+{
+  "provider_transactions": 2100,
+  "bank_credit_entries": 2063,
+  "matched_transactions": 1785,
+  "exception_transactions": 315,
+  "match_rate": 0.85,
+  "exception_counts": {
+    "Matched": 1785,
+    "Missing": 90,
+    "Amount mismatch": 89,
+    "Delayed": 83,
+    "Duplicate": 53
+  },
+  "expected_net_ngn": 471170176.86,
+  "bank_credits_ngn": 462349350.84,
+  "absolute_unreconciled_variance_ngn": 32816526.04,
+  "unmatched_expected_ngn": 20787155.76
+}

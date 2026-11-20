@@ -1,0 +1,24 @@
+{
+  "history_months": 36,
+  "backtest_months": 6,
+  "revenue_mae_ngn": 764901.62,
+  "latest_month_revenue_ngn": 38597248.13,
+  "latest_month_ebitda_ngn": 10963474.94,
+  "latest_cash_ngn": 322161650.59,
+  "historical_ebitda_margin": 0.2985,
+  "next_six_months_revenue_by_scenario_ngn": {
+    "Base": 261806438.15,
+    "Downside": 230389665.57,
+    "Upside": 293223210.73
+  },
+  "forecast_cash_at_six_months_ngn": {
+    "Downside": 382924855.9,
+    "Base": 401274996.01,
+    "Upside": 419625136.11
+  },
+  "assumptions": {
+    "downside_revenue_multiplier": 0.88,
+    "upside_revenue_multiplier": 1.12,
+    "variable_cost_ratio": 0.4159
+  }
+}
