@@ -37,9 +37,13 @@ The model flagged 7 of 18 labelled fraud transactions in the held-out period, bu
 
 Pilot an investigator review queue with explicit case priority, monitor precision and recall against review capacity, log investigation outcomes, and re-evaluate the threshold when transaction patterns change.
 
-## 5. Limitations
+## 5. Limitations and Future Improvements
 
-The 4,800 transactions and fraud labels are simulated, including the behavioural patterns. Neither these model metrics nor the risk scores demonstrate production fraud-detection effectiveness. A risk alert is a prompt to investigate, not proof of misconduct.
+The analysis demonstrates a structured approach to fraud detection using simulated transaction data. Before deployment in a real financial environment, the model would require validation against actual transaction patterns, ongoing performance monitoring, and appropriate risk controls.
+
+Future improvements could include additional behavioural indicators, improved fraud classification methods, and continuous model evaluation to reduce false alerts.
+
+Because the transaction data and fraud labels are simulated, reported metrics are illustrative, not evidence of production performance. A flagged transaction requires investigation and does not establish wrongdoing.
 
 ## 6. Reproduce the analysis
 
